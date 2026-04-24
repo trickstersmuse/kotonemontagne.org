@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotone Montagne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@200;300;400&display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="Wonderment.ico">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2340;
+            --ice: #a8c8e8;
+            --ice-light: #d6eaf8;
+            --gold: #b89a5a;
+            --text: #2c3a52;
+            --subtext: #6a8aaa;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Raleway', sans-serif;
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .crystals {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .crystal {
+            position: absolute;
+            opacity: 0;
+            color: var(--ice);
+            animation: drift linear infinite;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .rule {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin-bottom: 18px;
+            animation: expandRule 1.4s ease 0.3s both;
+        }
+
+        @keyframes expandRule {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 60px;
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            letter-spacing: 0.18em;
+            color: var(--text);
+            text-transform: lowercase;
+            animation: fadeIn 1.6s ease 0.4s both;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            letter-spacing: 0.06em;
+            color: var(--subtext);
+            animation: fadeIn 1.6s ease 0.6s both;
+        }
+
+        .image-frame {
+            position: relative;
+            margin-top: 32px;
+            animation: fadeIn 1.6s ease 0.8s both;
+        }
+
+        .image-frame img {
+            display: block;
+            max-height: 340px;
+            max-width: min(340px, 80vw);
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gold corner accents */
+        .image-frame::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            background: linear-gradient(var(--gold), var(--gold)) top left / 14px 1px no-repeat,
+            linear-gradient(var(--gold), var(--gold)) top left / 1px 14px no-repeat,
+            linear-gradient(var(--gold), var(--gold)) bottom right / 14px 1px no-repeat,
+            linear-gradient(var(--gold), var(--gold)) bottom right / 1px 14px no-repeat;
+            pointer-events: none;
+        }
+
+        .credit {
+            margin-top: 16px;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            color: var(--subtext);
+            text-transform: uppercase;
+            animation: fadeIn 1.6s ease 1s both;
+        }
+
+        .credit a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .credit a:hover {
+            opacity: 0.6;
+        }
+
+        .rule-bottom {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin-top: 20px;
+            animation: expandRule 1.4s ease 1.2s both;
+        }
+    </style>
+</head>
+<body>
+
+<div class="crystals" id="crystals"></div>
+
+<div class="container">
+    <div class="rule"></div>
+    <h1>kotonemontagne.org</h1>
+    <p class="subtitle">Site under construction. Please come back later&hellip;</p>
+
+    <div class="image-frame">
+        <img src="wondermentwork.png" alt="Kotone Montagne"/>
+    </div>
+
+    <p class="credit">art commissioned from <a href="https://x.com/moolioli" target="_blank">@moolioli</a> on VGEN</p>
+    <p class="credit">site created by <a href="https://x.com/trickstersmuse" target="_blank">@trickstersmuse</a></p>
+    <div class="rule-bottom"></div>
+</div>
+
+<script>
+    const container = document.getElementById('crystals');
+    const chars = ['❄', '✦', '✧', '·', '⬡', '✶', '❅'];
+    for (let i = 0; i < 32; i++) {
+        const el = document.createElement('span');
+        el.className = 'crystal';
+        el.textContent = chars[Math.floor(Math.random() * chars.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = (8 + Math.random() * 12) + 'px';
+        el.style.animationDuration = (14 + Math.random() * 20) + 's';
+        el.style.animationDelay = (Math.random() * 22) + 's';
+        container.appendChild(el);
+    }
+</script>
+</body>
+</html>
